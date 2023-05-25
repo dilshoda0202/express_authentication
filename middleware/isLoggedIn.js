@@ -9,5 +9,4 @@ function isLoggedIn(req, res, next) {
 
 module.exports = isLoggedIn;
 
-const isLoggedIn = require('./middleware/isLoggedIn');
 

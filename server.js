@@ -5,6 +5,7 @@ const app = express();
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
+const isLoggedIn = require('./middleware/isLoggedIn');
 
 
 SECRET_SESSION = process.env.SECRET_SESSION;
@@ -41,6 +42,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.render('index');
 })
+
+
 
 app.use('/auth', require('./controllers/auth'));
 
