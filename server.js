@@ -20,7 +20,6 @@ app.use(layouts);
 
 app.use(flash());            // flash middleware
 
-
 app.use(session({
   secret: SECRET_SESSION,    // What we actually will be giving the user on our site as a session cookie
   resave: false,             // Save the session even if it's modified, make this false
@@ -38,14 +37,17 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.get('/', (req, res) => {
   res.render('index');
 })
 
-
-
 app.use('/auth', require('./controllers/auth'));
+
+// Add this above /auth controllers
+app.get('/profile', isLoggedIn, (req, res) => {
+  const { id, name, email } = req.user.get();
+  res.render('profile', { id, name, email });
+});
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
